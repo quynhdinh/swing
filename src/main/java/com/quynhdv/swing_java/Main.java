@@ -1,9 +1,9 @@
 package com.quynhdv.swing_java;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 final class Pair<T, U> {
@@ -21,11 +21,10 @@ final class Pair<T, U> {
         return "(" + first + ", " + second + ")";
     }
 }
-
-public class LargestRectangle extends JPanel {
+public class Main extends JPanel {
     private int numDots;
-    private java.util.List<Pair<Integer, Integer>> locations;
-    public LargestRectangle(int numDots) {
+    private List<Pair<Integer, Integer>> locations;
+    public Main(int numDots) {
         this.numDots = numDots;
         this.locations = new ArrayList<>();
     }
@@ -54,8 +53,8 @@ public class LargestRectangle extends JPanel {
 
         // Generate random number of dots between 100 and 200
         Random rand = new Random();
-        int numDots = 100 + rand.nextInt(101); // 100 to 200
-
+        int numDots = 4 + rand.nextInt(5); // 100 to 200
+        System.out.println("Generated " + numDots + " points");
         // Create the frame
         JFrame frame = new JFrame("Random Dots Swing Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,10 +63,22 @@ public class LargestRectangle extends JPanel {
         frame.setResizable(false);
 
         // Add the panel with random dots
-        LargestRectangle dotsPanel = new LargestRectangle(numDots);
+        Main dotsPanel = new Main(numDots);
         frame.add(dotsPanel);
-
+        List<Pair<Integer, Integer>> locations1 = dotsPanel.locations;
+        List<Integer> xCoords = new ArrayList<>(), yCoords = new ArrayList<>();
+        for (Pair<Integer, Integer> integerIntegerPair : locations1) {
+            xCoords.add(integerIntegerPair.first);
+            yCoords.add(integerIntegerPair.second);
+        }
         // Make the frame visible
         frame.setVisible(true);
+        Solution sol = new Solution();
+        List<Pair<Integer, Integer>> pairs = sol.maxRectangleArea(xCoords, yCoords);
+        if (pairs.isEmpty()){
+            System.out.println("no sol");
+        } else {
+            System.out.println(pairs);
+        }
     }
 }
